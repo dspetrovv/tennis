@@ -1,0 +1,204 @@
+.player-info,
+.statistics {
+  display: flex;
+  justify-content: space-between;
+  // margin-left: -1.5rem;
+  &__block {
+    flex: 0 0 50%;
+    width: 100%;
+    &:nth-child(2) {
+      padding-left: 24px;
+    }
+    > h2 {
+      margin-bottom: 8px;
+    }
+  }
+  &-generals > div {
+    padding: 16px 0;
+    border-bottom: 1px solid #ebebeb;
+    > span {
+      text-align: end;
+      float: right;
+    }
+  }
+}
+.player {
+  padding: 24px 16px;
+  &-score {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    font-weight: 600;
+    &__name {
+      text-align: center;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #dbdbdb;
+    }
+    &__result {
+      height: 35%;
+      font-size: 32px;
+      &_win {
+        color: $colorSuccess;
+      }
+      &_lose {
+        color: $colorDanger;
+      }
+    }
+    &__points {
+      height: 65%;
+      font-size: 45px;
+    }
+  }
+  &-statistics {
+    margin-top: 16px;
+  }
+  &-photos {
+    margin-top: 12px;
+    &__block {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: minmax(150px, 1fr);
+      gap: 20px 20px;
+    }
+    &__image {
+      text-align: center;
+      img {
+        width: 100%;
+      }
+    }
+  }
+  &__photo {
+    flex: 0 0 35%;
+    position: relative;
+    text-align: center;
+    align-self: center;
+    &_popup {
+      &+div {
+        padding-left: 0 !important;
+      }
+      > img {
+        max-width: 250px;
+        height: 100%;
+      }
+    }
+    > img {
+      max-width: 312px;
+      width: 100%;
+      // height: auto;
+      height: 250px;
+    }
+    + div {
+      flex: 0 0 65%;
+    }
+  }
+  &__match-card {
+    display: flex;
+    border: 1px solid;
+    user-select: none;
+    &_info {
+      display: flex;
+      flex-direction: column;
+      flex: 1 auto;
+      padding: 8px;
+      .opponent {
+        color: #717980;
+        margin-bottom: 0.1rem;
+        max-width: 290px;
+        > span {
+          color: #717980;
+          margin-right: 0.5rem;
+        }
+        > b, > strong {
+          color: #000000;
+        }
+      }
+      .tournament {
+        margin-top: 0.1rem;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        max-width: 290px;
+        > a {
+          font-weight: 600;
+        }
+      }
+    }
+    &_score {
+      padding: 8px;
+      text-align: center;
+      align-self: center;
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .player {
+    padding-top: 0;
+    padding-bottom: 16px;
+    &-score {
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      &__result {
+        margin-right: 10px;
+      }
+      &__name {
+        font-size: 2rem;
+      }
+    }
+    &-photos {
+      margin-top: 0;
+      &__block {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    &-statistics {
+      padding-top: 0;
+      padding-bottom: 16px;
+      margin-top: 0rem;
+    }
+    &-matches {
+      margin-top: 16px;
+    }
+    &-info {
+      flex-direction: column;
+      &__block {
+        margin-top: 16px;
+        &:nth-child(2) {
+          padding-left: 0;
+        }
+      }
+    }
+    &__photo {
+      > img {
+        max-width: none;
+        height: auto;
+      }
+      &_popup {
+        display: none;
+      }
+    }
+  }
+  .statistics {
+    flex-direction: column;
+    &__block {
+      padding-top: 16px;
+      &-matches {
+        margin-top: 16px;
+      }
+      &:nth-child(2) {
+        padding-left: 0;
+      }
+    }
+  }
+}
+@media screen and (max-width: 620px) {
+  .player {
+    &-photos {
+      &__block {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+}

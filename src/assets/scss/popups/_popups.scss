@@ -1,0 +1,162 @@
+.popup {
+  display: none;
+  &.show {
+    display: block !important;
+  }
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  &-pair {
+    width: 500px;
+    .popup-body {
+      &::before {
+        content: '';
+        width: calc(100% - 20px);
+        height: 100%;
+        position: absolute;
+        background-image: url("~/src/assets/images/two-rockets.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        opacity: 0.04;
+      }
+    }
+  }
+  &-window {
+    margin: 20vh auto;
+    .popup-body {
+      position: relative;
+      min-height: 350px;
+      > div {
+        &:first-child,
+        &:last-child {
+          height: 150px;
+          padding: 0px 15px;
+        }
+        &.score-buttons {
+          height: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+          position: relative;
+          > .score__button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80%;
+            width: 100%;
+          }
+          input {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+            z-index: -1;
+            &:checked {
+              &+label {
+                @extend .btn__radio_active;
+              }
+            }
+          }
+          label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            position: absolute;
+            padding: 5px 12px;
+            z-index: 1;
+            min-width: 53px;
+          }
+        }
+      }
+    }
+  }
+  &-header,
+  &-footer {
+    min-height: 60px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border: 2px solid $color4;
+  }
+  &-header {
+    justify-content: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: 0;
+    // border-bottom: 1px solid rgba(128, 128, 128, 0.6);
+    position: relative;
+    &__button-close {
+      @extend .btn;
+      position: absolute;
+      width: 25px;
+      border-radius: 5px;
+      right: 10px;
+      cursor: pointer;
+      &:hover {
+        @include activeBtn;
+        > span {
+          &::before,
+          &::after {
+            background-color: white;
+          }
+        }
+      }
+      > span {
+        position: relative;
+        content: '';
+        &::before,
+        &::after {
+          position: absolute;
+          content: '';
+          width: 15px;
+          height: 3px;
+          left: -7px;
+          top: -1px;
+          background-color: $color2;
+          z-index: 3;
+        }
+        &::before {
+          transform: rotate(45deg);
+        }
+        &::after {
+          transform: rotate(-45deg);
+        }
+      }
+    }
+  }
+  &-footer {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    // border-top: 1px solid rgba(128, 128, 128, 0.6);
+    border-top: 0;
+    justify-content: flex-end;
+    .btn {
+      width: 100px;
+      text-align: center;
+      &:first-child {
+        margin-right: 10px;
+      }
+    }
+  }
+  &-body {
+    border: 2px solid $color4;
+    border-top: 0;
+    border-bottom: 0;
+    min-height: 300px;
+    padding: 10px;
+    background-color: white;
+  }
+}
+@media screen and (max-width: 530px) {
+  .popup {
+    &-pair {
+      width: 100%;
+    }
+  }
+}

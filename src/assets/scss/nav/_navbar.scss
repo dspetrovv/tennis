@@ -1,0 +1,353 @@
+.nav {
+  width: 100%;
+  height: 15vh;
+  max-height: 170px;
+  background-color: inherit;
+}
+
+.nav-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  min-width: 992px;
+  height: 100%;
+  margin: auto;
+  padding: 0 10vh;
+}
+
+.nav-icon {
+  display: flex;
+  align-items: center;
+
+  > img {
+    max-height: 90px;
+    width: 100%;
+  }
+
+  > span {
+    font-size: 50px;
+    text-transform: uppercase;
+    color: $color2;
+  }
+}
+
+.nav-auth {
+  display: flex;
+  padding-right: 8rem;
+  > a {
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-right: 0.5rem;
+  }
+}
+
+.nav-button {
+  right: 0;
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  margin-right: 10vh;
+  cursor: pointer;
+  transition: margin 0.35s ease-in;
+
+  &.active {
+    transition: margin 0.35s ease-in-out;
+    margin-right: 2.55rem;
+  }
+
+  &__text {
+    text-transform: uppercase;
+    padding-right: 0.3rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: $color2;
+  }
+  &__icon-block {
+    position: relative;
+    width: 32px;
+    height: 22px;
+  }
+  &__icon::before,
+  &__icon::after,
+  &__icon_active::before,
+  &__icon_active::after {
+    position: absolute;
+    content: '';
+    height: 3px;
+    left: 0;
+    background-color: $color2;
+    transition: transform 0.3s ease-in;
+  }
+  &__icon::before {
+    width: 90%;
+    top: 0;
+  }
+  &__icon::after {
+    width: 100%;
+    bottom: 0;
+  }
+  &__icon > span {
+    position: absolute;
+    top: calc(50% - 1px);
+    width: 70%;
+    height: 3px;
+    left: 0;
+    background-color: $color2;
+    transition: transform 0.3s ease-in;
+  }
+  &__icon_active > span {
+    transform: scale(0);
+  }
+  &__icon_active::before {
+    width: 100%;
+    transform: rotate(45deg);
+    top: 9px;
+  }
+  &__icon_active::after {
+    width: 100%;
+    transform: rotate(-45deg);
+    bottom: 10px;
+  }
+}
+
+.nav-menu {
+  position: fixed;
+  z-index: 9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  transition: all 0.5s ease-in-out;
+
+  &_active {
+    top: 0;
+  }
+  &__header {
+    width: 100%;
+    min-width: 992px;
+    /* Depends on text size */
+    height: 15vh;
+    background-color: white;
+    overflow: hidden;
+    padding: 0 10vh;
+    position: relative;
+    .nav-button {
+      top: calc((15vh / 2) - 0.7rem);
+      .nav-button__icon-block {
+        top: -0.05rem;
+      }
+    }
+    &__background {
+      height: 100%;
+      background-image: url('~/src/assets/images/t-man.png');
+      background-size: auto 25vh;
+      background-repeat: no-repeat;
+      margin-top: 0.5rem;
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(0, 0, 0, 0) 65%, rgba(0, 0, 0, 0) 100%);
+    }
+  }
+  &__body {
+    width: 100%;
+    min-width: 992px;
+    height: 72vh;
+    display: flex;
+    align-items: center;
+    padding: 0 10vh;
+    > div {
+      width: 100%;
+      display: flex;
+      padding: 0 1.5rem;
+      /* justify-content: space-between; */
+    }
+    &__section:not(:last-child) {
+      margin-right: 165px;
+    }
+  }
+  &__footer {
+    position: relative;
+    display: flex;
+    width: 100%;
+    min-width: 992px;
+    height: 13vh;
+    padding-left: calc(10vh + 1.5rem);
+    padding-right: calc(10vh + 1.5rem);
+    > img {
+      width: auto;
+      height: 25vh;
+      position: absolute;
+      bottom: 0;
+      padding-left: 50%;
+    }
+    &__item {
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      &:not(:last-child) {
+        margin-right: 1.5rem;
+      }
+    }
+  }
+  &__block-title {
+    font-size: 3vh;
+    text-transform: uppercase;
+    font-family: 'Russo', sans-serif;
+  }
+  &__list {
+    margin-top: 2.3vh;
+    list-style: none;
+    font-size: 2.5vh;
+    padding: 0;
+    text-align: justify;
+    li {
+      margin: 1rem 0;
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .nav-auth {
+    padding-right: 8.5rem;
+  }
+
+  .nav-block,
+  .nav-menu__body,
+  .nav-menu__header,
+  .nav-menu__footer {
+    min-width: 0px;
+    max-width: 992px;
+    padding: 0 0.7rem;
+  }
+
+  .nav-menu__footer {
+    padding: 0 2.2rem;
+  }
+
+  .nav-menu__header {
+    padding: 0;
+  }
+
+  .nav-menu__body {
+    > div {
+      justify-content: space-between;
+    }
+
+    &__section {
+      &:not(:last-child) {
+        margin-right: 0;
+      }
+      &:nth-child(2) {
+        margin-right: 0.7rem;
+      }
+    }
+  }
+
+  .nav-button {
+    margin-right: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .nav-icon > span {
+    display: none;
+  }
+
+  .nav-menu {
+    display: block;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    &__header {
+      .nav-button {
+        margin-right: 1.5rem;
+      }
+    }
+    &__body {
+      justify-content: space-between;
+      padding: 4vh 0 0;
+      height: auto;
+      > div {
+        margin-right: 0 !important;
+        flex-direction: column;
+        height: 100%;
+      }
+      &__section:not(:last-child) {
+        margin-bottom: 2.5vh;
+      }
+    }
+    &__footer {
+      height: auto;
+      padding: 2vh 1.5rem;
+    }
+  }
+}
+
+@media screen and (max-width: 690px) {
+  .nav-menu__body {
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-top: 4vh;
+
+    &__section:not(:last-child) {
+      margin-bottom: 2.5vh;
+    }
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .nav-auth {
+    flex-direction: column;
+    padding-right: 4rem;
+    > a {
+      margin-right: 0;
+      &:first-child {
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+
+  .nav-button__text {
+    display: none;
+  }
+
+  .nav-menu__header {
+    position: absolute;
+    background: none;
+    .nav-button {
+      top: calc((15vh / 2) - 1.15rem);
+      margin-right: 2.55rem;
+    }
+    &::before {
+      content: none;
+    }
+    > div {
+      background: inherit;
+      margin-top: 0.5rem;
+    }
+  }
+
+  .nav-menu__body {
+    min-height: 100%;
+    padding-top: 8vh;
+  }
+
+  .nav-menu__footer {
+    padding: 0 1.5rem;
+    > a {
+      display: none;
+    }
+  }
+}

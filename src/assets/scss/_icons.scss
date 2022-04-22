@@ -1,0 +1,73 @@
+.icon__star {
+  width: 22px;
+  height: 22px;
+  > :first-child > :first-child {
+    stroke: #CC8F1C;
+    > :first-child {
+      fill: #FFD858;
+    }
+  }
+}
+.icon__cup {
+  width: 40px;
+  &_first {
+    @extend .icon__cup;
+    > :first-child {
+      #handles path {
+        fill: #E6B85C;
+      }
+      #cup path {
+        fill: #FFCC66;
+      }
+      #base1 path {
+        fill: #E6B85C;
+      }
+    }
+  }
+  &_second {
+    @extend .icon__cup;
+    > :first-child {
+      #handles path {
+        fill: #999B9B;
+      }
+      #cup path {
+        fill: #C8CACC;
+      }
+      #base1 path {
+        fill: #999B9B;
+      }
+    }
+  }
+  &_third {
+    @extend .icon__cup;
+    > :first-child {
+      #handles path {
+        fill: #967444;
+      }
+      #cup path {
+        fill: #B6855A;
+      }
+      #base1 path {
+        fill: #967444;
+      }
+    }
+  }
+}
+.icon__facebook {
+  z-index: 2;
+  path {
+    color: $color1;
+  }
+}
+.icon__instagram {
+  z-index: 2;
+  path {
+    color: $color1;
+  }
+}
+.icon__github {
+  z-index: 2;
+  path {
+    color: $color1;
+  }
+}

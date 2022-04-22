@@ -1,0 +1,219 @@
+/* secondary - color: #717980; */
+@mixin activeBtn {
+  color: white;
+  border-color: $color4;
+  background-color: $color4;
+}
+.radio-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  min-width: 80px;
+  input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    z-index: -1;
+    &:checked {
+      &+label {
+        @extend .btn__radio_active;
+      }
+    }
+  }
+  label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    padding: 5px 12px;
+    z-index: 1;
+    min-width: 53px;
+  }
+}
+.btn {
+  background-color: inherit;
+  border: 2px solid;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: 600;
+  color: $color2;
+  transition: box-shadow 0.25s ease-in-out, background-color 0.15s ease-in-out;
+  user-select: none;
+  cursor: pointer;
+  &_big {
+    padding: 0.65rem 0.95rem !important;
+  }
+  &:hover {
+    box-shadow: 0 0 1px 0px $color3 inset, 0 0 3px 0px $color3;
+  }
+  &__radio {
+    border-radius: 5px;
+    &:hover {
+      @include activeBtn;
+    }
+    &_active {
+      @include activeBtn;
+    }
+  }
+  &_success {
+    color: $colorSuccess;
+    &-disabled {
+      cursor: default;
+      &:hover {
+        box-shadow: none;
+      }
+      color: $colorSuccessDisabled;
+    }
+  }
+  &_danger {
+    color: $colorDanger;
+    &-disabled {
+      cursor: default;
+      &:hover {
+        box-shadow: none;
+      }
+      color: $colorDangerDisabled;
+    }
+  }
+}
+.disabled {
+  color: #717980;
+}
+.dropdown {
+  display: block;
+  position: relative;
+  width: 100%;
+  &.show {
+    display: block !important;
+  }
+  &-list {
+    @include noPaddingList;
+    position: absolute;
+    display: none;
+    margin-top: 0.4rem;
+    min-width: 9rem;
+    max-height: 100vh;
+    overflow-y: auto;
+    // background-color: bisque;
+    background-color: $backgroundColor;
+    z-index: 10;
+    // padding: 0.5rem 0;
+    border-radius: 0.5rem;
+    border: 2px solid $color1;
+    box-shadow: 0px 0px 10px 0px rgba(34, 60, 80, 0.2);
+    &.show {
+      display: block !important;
+    }
+    &__item {
+      width: 100% !important;
+      transition: background-color 0.3s ease-in-out;
+      color: $color0;
+      font-weight: 600;
+      transition: color 0.3s ease-in-out;
+      text-align: center;
+      padding: 0.65rem 0.95rem;
+      display: block;
+      cursor: pointer;
+      &:hover {
+        background-color: $color0;
+        color: white;
+      }
+      &_active {
+        @extend .dropdown-list__item;
+        color: $color0;
+        border-bottom: 3px solid $color0;
+        transition: border-bottom-color 0.3s ease-in-out;
+        &:hover {
+          border-bottom-color: $color1;
+        }
+      }
+    }
+  }
+  &__btn {
+    position: relative;
+    display: block;
+    width: 9rem;
+    padding: 0.65rem 1.2rem;
+    font-weight: 600;
+    border-color: $mainColor;
+    color: $mainColor;
+    &::after {
+      position: absolute;
+      content: '▼';
+      right: 10%;
+      top: calc(50% - 0.45rem);
+      font-size: 0.9rem;
+    }
+  }
+}
+.dropdown-btn {
+  position: relative;
+  display: none;
+  width: 9rem;
+  padding: 0.65rem 1.2rem;
+  font-weight: 600;
+  border-color: $mainColor;
+  color: $mainColor;
+  &::after {
+    position: absolute;
+    content: '▼';
+    right: 10%;
+    top: calc(50% - 0.45rem);
+    font-size: 0.9rem;
+  }
+}
+.arrow {
+  display: flex;
+  margin: 1rem 0;
+  > :last-child:not(:first-child) {
+    margin-left: 1rem;
+  }
+}
+.arrow__item {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  line, polyline {
+    color: $color1;
+  }
+  &_disabled {
+    cursor: default;
+    line, polyline {
+      color: $color1_disabled;
+    }
+  }
+  &_left {
+    @extend .arrow__item;
+  }
+  &_right {
+    @extend .arrow__item;
+    transform: rotateZ(180deg);
+  }
+  &_up {
+    @extend .arrow__item;
+    transform: rotateZ(90deg);
+  }
+  &_down {
+    @extend .arrow__item;
+    transform: rotateZ(-90deg);
+  }
+}
+@media screen and (max-width: 992px) {
+  .dropdown {
+    width: 100%;
+    max-height: 215px;
+    // border: 2px solid $mainColor;
+    box-shadow: 0px 0px 10px 0px rgba(34, 60, 80, 0.8);
+  }
+  .dropdown-btn {
+    // display: block;
+  }
+}
+@media screen and (max-width: 540px) {
+  .dropdown-btn {
+    width: inherit;
+  }
+}

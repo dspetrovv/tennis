@@ -1,0 +1,53 @@
+@font-face {
+  font-family: 'Russo';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/RussoOne-Regular.ttf');
+}
+@font-face {
+  font-family: 'Exo2-Regular';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/Exo2-Regular.ttf');
+}
+@font-face {
+  font-family: 'Exo2-ExtraBold';
+  src: url('../fonts/Exo2-ExtraBold.ttf');
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+body {
+  font-family: 'Exo2-Regular', sans-serif;
+  &.locked {
+    overflow: hidden;
+  }
+}
+a {
+  text-decoration: none;
+  color: $color0;
+}
+.content {
+  min-width: 992px;
+  padding: 0 10vh;
+}
+.card {
+  box-shadow: 0px 0px 10px 0px rgba(34, 60, 80, 0.2);
+  border-radius: 0.5rem;
+}
+@media screen and (max-width: 992px) {
+  .content {
+    min-width: 0px;
+    max-width: 992px;
+    padding: 0 0.7rem;
+  }
+  .card {
+    box-shadow: none;
+  }
+}
+// @media screen and (max-width: 540px) {
+//   .card {
+//     box-shadow: none;
+//   }
+// }

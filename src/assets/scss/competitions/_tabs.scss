@@ -1,0 +1,120 @@
+.tabs {
+  display: flex;
+  // flex-direction: column;
+  width: 100%;
+  /* max-width: 992px; */
+}
+#date-tabs {
+  .tab-block {
+    width: 100%;
+  }
+}
+.tab-block {
+  position: relative;
+}
+.tab-list {
+  @include noPaddingList;
+}
+.tab__item {
+  width: 100%;
+  text-align: center;
+  padding: 0.65rem 0.95rem;
+  display: block;
+  cursor: pointer;
+  transition: width 0.3s ease-in-out,
+    border-bottom-color 0.3s ease-in-out,
+    background-color 0.3s ease-in-out,
+    color 0.3s ease-in-out !important;
+    max-width: fit-content;
+  &_active {
+    @extend .tab__item;
+    color: $color4;
+    border-bottom: 3px solid;
+    overflow: inherit !important;
+    min-width: fit-content;
+  }
+}
+#year {
+  margin-bottom: 0.35rem;
+  .tab__item {
+    margin: 0 10px;
+  }
+}
+#months {
+  border-bottom: 1px solid #ebebeb;
+  .tab__item {
+    width: 8.3%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+#years-tabs {
+  margin-bottom: 0.5rem;
+  height: 45px;
+  justify-content: center;
+}
+.years {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  @media screen and (min-width: 993px) {
+    .tab__item_active {
+      border-bottom: 2px solid;
+      color: white;
+      border-color: $color4;
+      background-color: $color4;
+      transition: none;
+    }
+  }
+}
+.years__btn {
+  margin: 0.1rem 0.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  text-align: center;
+}
+.dropdowns-tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  > div {
+    margin: 0 10px;
+  }
+}
+@media screen and (max-width: 992px) {
+  #year {
+    margin-bottom: 0;
+  }
+  #months {
+    border-bottom-color: $mainColor;
+  }
+  .tabs {
+    // flex-direction: row;
+  }
+  .tab__item {
+    // width: 100% !important;
+    color: $color0;
+    font-weight: 600;
+    &_active:hover {
+      border-bottom-color: $color1;
+    }
+    &:hover {
+      background-color: $color0;
+      overflow: inherit !important;
+      color: white;
+      width: 100% !important;
+    }
+  }
+  .tab-block {
+    margin: 0.1rem 0.5rem;
+  }
+  .years {
+    // display: block;
+  }
+}
+@media screen and (max-width: 540px) {
+  .tab-block {
+    width: 100%;
+  }
+}

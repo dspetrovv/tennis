@@ -1,0 +1,55 @@
+$scoreWidth: 50px;
+.group {
+  padding: 20px;
+  padding-right: 10px;
+  &-tables{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  &__table {
+    margin: 20px 10px 0 0;
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+    thead {
+      font-weight: 600;
+    }
+    tbody td {
+      // border-color: rgb(128, 128, 128);
+      &:nth-child(2) {
+        text-align: left;
+      }
+    }
+    td {
+      border: 1px solid;
+      padding: 6px;
+      &:nth-child(1) {
+        width: 25px;
+        font-weight: 600;
+      }
+      &:nth-child(2) {
+        width: 125px;
+      }
+      &.score {
+        width: $scoreWidth;
+      }
+      &.sets {
+        width: 50px;
+      }
+      &.points {
+        width: 50px;
+      }
+      &.place {
+        width: 50px;
+      }
+      &.active {
+        cursor: pointer;
+        transition: box-shadow 0.25s ease-in-out;
+        &:hover {
+          box-shadow: 0px 0px 1px 2px #ff8d18 inset;
+        }
+      }
+    }
+  }
+}
