@@ -75,6 +75,7 @@
         />
       </div>
     </div>
+    <competitions-groups />
   </div>
   <!-- <div class="card group">
     <h2>Групповая стадия</h2>
@@ -190,9 +191,17 @@ import DropList from "@/components/DropList.vue";
 import { Dropdown } from "@/types/globals";
 import { initButtons } from "@/functions/competitions-buttons";
 import { changeClass } from "@/functions/competitions-tabs-functions";
+import CompetitionsGroups from "./CompetitionsGroups.vue";
 
 export default defineComponent({
-  components: { ArrowIcon, YearTabs, MonthTabs, CompetitionsEvent, DropList },
+  components: {
+    ArrowIcon,
+    YearTabs,
+    MonthTabs,
+    CompetitionsEvent,
+    DropList,
+    CompetitionsGroups,
+  },
   setup() {
     const {
       width,

@@ -1,7 +1,15 @@
 <template>
   <div class="card group">
+    <group-modal
+      v-if="isOpenedModal"
+      :isOpened="isOpenedModal"
+      :pair="pair"
+      @accept-score="acceptScore"
+      @close-modal="toggleModal"
+    />
+
     <h2>Групповая стадия</h2>
-    <div v-if="groups.length" class="group-tables">
+    <div v-if="!isLoadingGroups" class="group-tables">
       <group-table
         :players="groups[0]"
         :setScore="setScore"
@@ -12,7 +20,7 @@
         :players="groups[1]"
         :setScore="setScore"
         :isGroupsClosed="false"
-        :groupNumber="1"
+        :groupNumber="2"
       />
     </div>
   </div>
@@ -20,27 +28,64 @@
 <script lang="ts">
 import GroupTable from "@/components/GroupTable.vue";
 import { useCompetitionsStore } from "@/store/useCompetitions";
-import { Pair } from "@/types/competitions/competition-interfaces";
+import { ShortPair } from "@/types/competitions/competition-interfaces";
 import { storeToRefs } from "pinia";
-import { defineComponent, onMounted } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
+import GroupModal from "@/components/popups/GroupModal.vue";
 
 export default defineComponent({
-  components: { GroupTable },
-  emits: ["toggleDialog"],
-  setup(props, { emit }) {
+  components: { GroupTable, GroupModal },
+
+  setup() {
     const competitionsStore = useCompetitionsStore();
-    const { groups } = storeToRefs(competitionsStore);
+    const { isLoadingGroups, groups } = storeToRefs(competitionsStore);
+    const pair = ref<ShortPair[]>([
+      { id: -1, shortName: "Первый", img: "t-man", score: "-", groupNumber: 1 },
+      { id: -2, shortName: "Второй", img: "t-man", score: "-", groupNumber: 1 },
+    ]);
+    function setScore(newPair: ShortPair[]) {
+      pair.value = newPair;
+      toggleModal();
+    }
+    const isOpenedModal = ref<boolean>(false);
+    function toggleModal() {
+      isOpenedModal.value = !isOpenedModal.value;
+    }
+
+    function acceptScore(pair: ShortPair[]) {
+      const groupNumber = pair[0].groupNumber - 1;
+      console.log(groups.value[groupNumber].find((group) => group.idcompet));
+      const findIdx = groups.value[groupNumber].findIndex(
+        (group) =>
+          group.user1.id === pair[0].id && group.user2.id === pair[1].id
+      );
+      const updatedScore = groups.value[groupNumber].find(
+        (group) =>
+          group.user1.id === pair[0].id && group.user2.id === pair[1].id
+      )!;
+      const updatedGroup = [...groups.value];
+      updatedGroup[groupNumber][findIdx] = {
+        ...updatedScore,
+        score: pair[0].score,
+      };
+      console.log(updatedGroup[groupNumber]);
+      console.log("updatedScore", updatedScore);
+      console.log(pair);
+      groups.value = [...updatedGroup];
+    }
 
     onMounted(() => {
       competitionsStore.getGroups();
     });
-    function setScore(pair: Pair) {
-      emit("toggleDialog", pair);
-    }
 
     return {
+      isOpenedModal,
+      isLoadingGroups,
       groups,
+      pair,
       setScore,
+      acceptScore,
+      toggleModal,
     };
   },
 });

@@ -19,17 +19,21 @@ $scoreWidth: 50px;
       // border-color: rgb(128, 128, 128);
       &:nth-child(2) {
         text-align: left;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
     }
     td {
-      border: 1px solid;
+      border: 1px solid black;
       padding: 6px;
       &:nth-child(1) {
         width: 25px;
         font-weight: 600;
       }
       &:nth-child(2) {
-        width: 125px;
+        // width: 125px;
+        max-width: 150px;
       }
       &.score {
         width: $scoreWidth;
@@ -49,6 +53,10 @@ $scoreWidth: 50px;
         &:hover {
           box-shadow: 0px 0px 1px 2px #ff8d18 inset;
         }
+      }
+      &.set {
+        color: white;
+        background-color: #F38A35;
       }
     }
   }

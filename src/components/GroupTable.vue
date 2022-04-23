@@ -20,26 +20,37 @@
       <tr v-for="(playerNumber, idx) in groupPlayers" :key="idx">
         <td>{{ idx + 1 }}</td>
         <td>{{ getName(players, playerNumber) }}</td>
+
         <template v-for="(player, index) in rows[idx]" :key="index">
           <td
             v-if="idx !== index"
-            class="active"
+            :class="player.score === '-' ? 'active' : 'set'"
             @click="setPair(player.user1, player.user2, player.score, setScore)"
           >
-            {{ player.score }}
+            {{
+              player.user2.id === playerNumber
+                ? player.score.split("").reverse().join("")
+                : player.score
+            }}
           </td>
+
           <template v-else>
             <td>&times;</td>
             <td
-              class="active"
+              :class="player.score === '-' ? 'active' : 'set'"
               @click="
                 setPair(player.user1, player.user2, player.score, setScore)
               "
             >
-              {{ player.score }}
+              {{
+                player.user2.id === playerNumber
+                  ? player.score.split("").reverse().join("")
+                  : player.score
+              }}
             </td>
           </template>
         </template>
+
         <template v-if="isGroupsClosed">
           <td>{{ getSets(rows) }}</td>
           <td>{{ getPoints(rows) }}</td>
@@ -73,7 +84,10 @@ export default defineComponent({
       required: true,
     },
   },
+
   setup(props) {
+    console.log("players", props.players);
+
     const { groupPlayers, getName, rows, setPair, getSets, getPoints } =
       useCompetitionsGroups(props);
 

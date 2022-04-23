@@ -26,6 +26,7 @@ interface Competition {
 }
 
 interface Pair {
+  id?: number;
   idcompet: number;
   user1: CompetitionPlayer;
   score: string;
@@ -44,7 +45,9 @@ interface ShortPair {
 
 interface CompetitionsStore {
   competitions: Competition[];
+  isLoadingCompetitions: boolean;
   groups: Pair[][];
+  isLoadingGroups: boolean;
 }
 
 // interface Pair {
