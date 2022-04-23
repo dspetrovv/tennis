@@ -16,3 +16,9 @@ $color4: #F38A35;
   list-style: none;
   padding-left: 0;
 }
+
+@mixin textEllipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

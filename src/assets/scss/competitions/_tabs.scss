@@ -14,6 +14,7 @@
 }
 .tab-list {
   @include noPaddingList;
+  justify-content: space-between;
 }
 .tab__item {
   width: 100%;
@@ -44,9 +45,7 @@
   border-bottom: 1px solid #ebebeb;
   .tab__item {
     width: 8.3%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    @include textEllipsis;
   }
 }
 #years-tabs {

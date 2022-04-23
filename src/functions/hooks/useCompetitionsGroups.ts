@@ -4,13 +4,13 @@ import {
   ShortPair,
 } from "@/types/competitions/competition-interfaces";
 import { generateShortName } from "@/functions/user-functions";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 function useCompetitionsGroups(props: any) {
   function getGroupPlayers() {
     const temp1 = props.players.map((player: Pair) => player.user1.id);
     const temp2 = props.players.map((player: Pair) => player.user2.id);
-    console.log([...new Set([...temp1, ...temp2])]);
+    console.log("GroupPlayers", [...new Set([...temp1, ...temp2])]);
     return [...new Set([...temp1, ...temp2])];
   }
   const groupPlayers = ref<number[]>(getGroupPlayers());
@@ -22,10 +22,6 @@ function useCompetitionsGroups(props: any) {
         player.user1.id === playerNumber || player.user2.id === playerNumber
     );
     return newRow;
-  }
-
-  function getRowsArray() {
-    return groupPlayers.value.map((player) => getRow(props.players, player));
   }
 
   function setPair(
@@ -86,7 +82,9 @@ function useCompetitionsGroups(props: any) {
     }
     return generateShortName(user);
   }
-  const rows = ref(getRowsArray());
+  const rows = computed(() => {
+    return groupPlayers.value.map((player) => getRow(props.players, player));
+  });
 
   return {
     groupPlayers,

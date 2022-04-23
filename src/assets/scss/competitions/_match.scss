@@ -63,9 +63,7 @@ $stageWidth: 30px;
     }
     &-name {
       flex: 1 auto;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      @include textEllipsis;
     }
     &-result {
       position: absolute;
