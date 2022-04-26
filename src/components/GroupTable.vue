@@ -5,11 +5,15 @@
         <td>№</td>
         <td>Участник</td>
 
-        <td v-for="(player, idx) in groupPlayers" :key="player" class="score">
+        <td
+          v-for="(player, idx) in groupPlayers[groupNumber - 1]"
+          :key="player.id"
+          class="score"
+        >
           {{ idx + 1 }}
         </td>
 
-        <template v-if="isGroupsClosed">
+        <template v-if="areGroupsClosed">
           <td class="sets">Сеты</td>
           <td class="points">Очки</td>
           <td class="place">Место</td>
@@ -17,9 +21,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(playerNumber, idx) in groupPlayers" :key="idx">
+      <tr
+        v-for="(groupPlayer, idx) in groupPlayers[groupNumber - 1]"
+        :key="idx"
+      >
         <td>{{ idx + 1 }}</td>
-        <td>{{ getName(players, playerNumber) }}</td>
+        <td>{{ getName(players, groupPlayer.id) }}</td>
 
         <template v-for="(player, index) in rows[idx]" :key="index">
           <td
@@ -28,7 +35,7 @@
             @click="setPair(player.user1, player.user2, player.score, setScore)"
           >
             {{
-              player.user2.id === playerNumber
+              player.user2.id === groupPlayer.id
                 ? player.score.split("").reverse().join("")
                 : player.score
             }}
@@ -43,27 +50,30 @@
               "
             >
               {{
-                player.user2.id === playerNumber
+                player.user2.id === groupPlayer.id
                   ? player.score.split("").reverse().join("")
                   : player.score
               }}
             </td>
           </template>
         </template>
+        <td v-if="idx === groupPlayers[groupNumber - 1].length - 1">&times;</td>
 
-        <template v-if="isGroupsClosed">
-          <td>{{ getSets(rows) }}</td>
-          <td>{{ getPoints(rows) }}</td>
-          <td>{{ 0 }}</td>
+        <template v-if="areGroupsClosed">
+          <td>{{ groupPlayer.winPoints }}:{{ groupPlayer.losePoints }}</td>
+          <td>{{ groupPlayer.totalPoints }}</td>
+          <td>{{ groupPlayer.place }}</td>
         </template>
       </tr>
     </tbody>
   </table>
 </template>
 <script lang="ts">
-import { Pair } from "@/types/competitions/competition-interfaces";
+import { Pair, ShortPair } from "@/types/competitions/competition-interfaces";
 import { defineComponent, PropType } from "vue";
 import useCompetitionsGroups from "@/functions/hooks/useCompetitionsGroups";
+import { useCompetitionsStore } from "@/store/useCompetitions";
+import { storeToRefs } from "pinia";
 
 export default defineComponent({
   props: {
@@ -72,7 +82,7 @@ export default defineComponent({
       required: true,
     },
     setScore: {
-      type: Function,
+      type: Function as PropType<(newPair: ShortPair[]) => void>,
       required: true,
     },
     isGroupsClosed: {
@@ -87,14 +97,18 @@ export default defineComponent({
 
   setup(props) {
     console.log("players", props.players);
+    const competitionsStore = useCompetitionsStore();
+    const { groupPlayers, areGroupsClosed } = storeToRefs(competitionsStore);
 
-    const { groupPlayers, getName, rows, setPair, getSets, getPoints } =
+    const { getName, rows, setPair, getSets, getPoints } =
       useCompetitionsGroups(props);
+    console.log("rows", rows);
 
     return {
       groupPlayers,
-      getName,
+      areGroupsClosed,
       rows,
+      getName,
       setPair,
       getSets,
       getPoints,

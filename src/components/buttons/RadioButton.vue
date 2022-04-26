@@ -30,7 +30,7 @@ export default defineComponent({
       required: true,
     },
     value: {
-      type: String as PropType<string>,
+      type: String as PropType<string | number>,
       required: true,
     },
   },

@@ -10,18 +10,22 @@
 
     <h2>Групповая стадия</h2>
     <div v-if="!isLoadingGroups" class="group-tables">
-      <group-table
-        :players="groups[0]"
-        :setScore="setScore"
-        :isGroupsClosed="false"
-        :groupNumber="1"
-      />
-      <group-table
-        :players="groups[1]"
-        :setScore="setScore"
-        :isGroupsClosed="false"
-        :groupNumber="2"
-      />
+      <div>
+        <group-table
+          :players="groups[0]"
+          :setScore="setScore"
+          :isGroupsClosed="false"
+          :groupNumber="1"
+        />
+      </div>
+      <div>
+        <group-table
+          :players="groups[1]"
+          :setScore="setScore"
+          :isGroupsClosed="false"
+          :groupNumber="2"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -38,7 +42,8 @@ export default defineComponent({
 
   setup() {
     const competitionsStore = useCompetitionsStore();
-    const { isLoadingGroups, groups } = storeToRefs(competitionsStore);
+    const { isLoadingGroups, groups, countOfPlayedPairs } =
+      storeToRefs(competitionsStore);
     const pair = ref<ShortPair[]>([
       { id: -1, shortName: "Первый", img: "t-man", score: "-", groupNumber: 1 },
       { id: -2, shortName: "Второй", img: "t-man", score: "-", groupNumber: 1 },
@@ -52,7 +57,8 @@ export default defineComponent({
       isOpenedModal.value = !isOpenedModal.value;
     }
 
-    function acceptScore(pair: ShortPair[]) {
+    function acceptScore(pair: ShortPair[], prevScore: string) {
+      console.log(prevScore);
       const groupNumber = pair[0].groupNumber - 1;
       console.log(groups.value[groupNumber].find((group) => group.idcompet));
       const findIdx = groups.value[groupNumber].findIndex(
@@ -68,10 +74,13 @@ export default defineComponent({
         ...updatedScore,
         score: pair[0].score,
       };
-      console.log(updatedGroup[groupNumber]);
+      console.log(groups.value.length);
       console.log("updatedScore", updatedScore);
       console.log(pair);
       groups.value = [...updatedGroup];
+      if (prevScore === "-") {
+        competitionsStore.updateGroupsStatus(pair, groupNumber);
+      }
     }
 
     onMounted(() => {

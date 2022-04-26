@@ -1,28 +1,44 @@
 import {
   CompetitionPlayer,
+  GroupPlayer,
   Pair,
   ShortPair,
 } from "@/types/competitions/competition-interfaces";
 import { generateShortName } from "@/functions/user-functions";
 import { computed, ref } from "vue";
+import { useCompetitionsStore } from "@/store/useCompetitions";
+import { storeToRefs } from "pinia";
 
-function useCompetitionsGroups(props: any) {
+interface props {
+  players: Pair[];
+  setScore: any;
+  isGroupsClosed: boolean;
+  groupNumber: number;
+}
+
+function useCompetitionsGroups(props: props) {
+  const competitionsStore = useCompetitionsStore();
   function getGroupPlayers() {
-    const temp1 = props.players.map((player: Pair) => player.user1.id);
-    const temp2 = props.players.map((player: Pair) => player.user2.id);
-    console.log("GroupPlayers", [...new Set([...temp1, ...temp2])]);
-    return [...new Set([...temp1, ...temp2])];
+    const players1 = props.players.map((player: Pair) => player.user1.id);
+    const players2 = props.players.map((player: Pair) => player.user2.id);
+    const playersIds = [...new Set([...players1, ...players2])];
+    const groupPlayers: GroupPlayer[] = [];
+    playersIds.forEach((pid) => {
+      groupPlayers.push({
+        id: pid,
+        winPoints: 0,
+        losePoints: 0,
+        totalPoints: 0,
+        koef: 0,
+        groupNumber: props.groupNumber,
+      });
+    });
+    console.log("ВЫзываю", groupPlayers);
+    competitionsStore.getGroupPlayers(groupPlayers);
+    return [...new Set([...players1, ...players2])];
   }
-  const groupPlayers = ref<number[]>(getGroupPlayers());
 
-  function getRow(players: Pair[], playerNumber: number) {
-    console.log("number", playerNumber);
-    const newRow = players.filter(
-      (player) =>
-        player.user1.id === playerNumber || player.user2.id === playerNumber
-    );
-    return newRow;
-  }
+  const { groupPlayers } = storeToRefs(competitionsStore);
 
   function setPair(
     player: CompetitionPlayer,
@@ -82,12 +98,31 @@ function useCompetitionsGroups(props: any) {
     }
     return generateShortName(user);
   }
+
+  function getRow(players: Pair[], playerNumber: number) {
+    // eslint-disable-next-line prefer-rest-params
+    const newRow = players.filter(
+      (player) =>
+        player.user1.id === playerNumber || player.user2.id === playerNumber
+    );
+    return newRow;
+  }
   const rows = computed(() => {
-    return groupPlayers.value.map((player) => getRow(props.players, player));
+    const arr: any = [];
+    groupPlayers.value.forEach((players, idx) => {
+      if (idx === props.groupNumber - 1) {
+        players.forEach((player) => {
+          arr.push(getRow(props.players, player.id));
+        });
+      }
+    });
+    return arr;
   });
 
+  getGroupPlayers();
+  console.log("rowsrows", `props.groupNumber`, rows.value);
+
   return {
-    groupPlayers,
     getName,
     rows,
     setPair,
