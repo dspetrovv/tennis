@@ -43,11 +43,14 @@ interface ShortPair {
   rating?: number;
 }
 
-interface CompetitionsStore {
-  competitions: Competition[];
-  isLoadingCompetitions: boolean;
-  groups: Pair[][];
-  isLoadingGroups: boolean;
+interface GroupPlayer {
+  id: number;
+  winPoints: number;
+  losePoints: number;
+  totalPoints: number;
+  koef: number;
+  groupNumber: number;
+  place?: number;
 }
 
 // interface Pair {
@@ -61,8 +64,8 @@ export {
   CompetitionResult,
   CompetitionPlayer,
   Competition,
-  CompetitionsStore,
   // Group,
   Pair,
   ShortPair,
+  GroupPlayer,
 };

@@ -46,8 +46,11 @@ a {
     box-shadow: none;
   }
 }
-// @media screen and (max-width: 540px) {
-//   .card {
-//     box-shadow: none;
-//   }
-// }
+@media screen and (max-width: 540px) {
+  .content {
+    padding: 0;
+  }
+  .card {
+    box-shadow: none;
+  }
+}

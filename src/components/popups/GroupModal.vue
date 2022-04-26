@@ -1,7 +1,7 @@
 <template>
   <main-modal
     :is-opened="isOpened"
-    :popup-class="'popup-pair'"
+    :popup-class="popupClass"
     @close-modal="closeModal"
   >
     <template #header>
@@ -14,7 +14,7 @@
         :img="pair[0].img"
         :score="firstPlayerScore"
       />
-      <div class="score-buttons">
+      <div v-if="!areGroupsClosed" class="score-buttons">
         <div v-for="score in scores" :key="score" class="score__button">
           <radio-button
             :button-id="score"
@@ -36,6 +36,7 @@
 
     <template #footer>
       <div
+        v-if="!areGroupsClosed"
         :class="`btn btn_success${firstPlayerScore === '-' ? '-disabled' : ''}`"
         @click="sendScore"
       >
@@ -46,8 +47,10 @@
   </main-modal>
 </template>
 <script lang="ts">
+import { useCompetitionsStore } from "@/store/useCompetitions";
 import { ShortPair } from "@/types/competitions/competition-interfaces";
-import { defineComponent, PropType, ref } from "vue";
+import { storeToRefs } from "pinia";
+import { computed, defineComponent, PropType, ref } from "vue";
 import RadioButton from "../buttons/RadioButton.vue";
 import PairPlayerBlock from "../PairPlayerBlock.vue";
 import MainModal from "./MainModal.vue";
@@ -77,6 +80,9 @@ export default defineComponent({
     const firstPlayerScore = ref<string>(getScore(props.pair[0], 0));
     const secondPlayerScore = ref<string>(getScore(props.pair[1], 2));
 
+    const competitionsStore = useCompetitionsStore();
+    const { areGroupsClosed } = storeToRefs(competitionsStore);
+
     function changeScore(score: string) {
       const scoreAsArray = score.split("-");
       firstPlayerScore.value = scoreAsArray[0];
@@ -87,21 +93,28 @@ export default defineComponent({
     function closeModal() {
       emit("closeModal");
     }
+    const popupClass = computed(() => {
+      return areGroupsClosed ? `popup-pair_closed` : `popup-pair`;
+    });
 
     function sendScore() {
       if (firstPlayerScore.value === "-" && secondPlayerScore.value === "-") {
         return;
       }
-      emit("acceptScore", [
-        {
-          ...props.pair[0],
-          score: `${firstPlayerScore.value}-${secondPlayerScore.value}`,
-        },
-        {
-          ...props.pair[1],
-          score: `${secondPlayerScore.value}-${firstPlayerScore.value}`,
-        },
-      ]);
+      emit(
+        "acceptScore",
+        [
+          {
+            ...props.pair[0],
+            score: `${firstPlayerScore.value}-${secondPlayerScore.value}`,
+          },
+          {
+            ...props.pair[1],
+            score: `${secondPlayerScore.value}-${firstPlayerScore.value}`,
+          },
+        ],
+        props.pair[0].score
+      );
       closeModal();
     }
 
@@ -109,6 +122,8 @@ export default defineComponent({
       scores,
       firstPlayerScore,
       secondPlayerScore,
+      areGroupsClosed,
+      popupClass,
       closeModal,
       changeScore,
       sendScore,
