@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import competitions from "./routes/competitions";
+import players from "./routes/players";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -18,6 +19,7 @@ const routes: Array<RouteRecordRaw> = [
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   },
   ...competitions,
+  ...players,
 ];
 
 const router = createRouter({
