@@ -31,6 +31,10 @@ a {
 .content {
   min-width: 992px;
   padding: 0 10vh;
+  padding-top: 10px;
+  background-color: #F9F9F9;
+  border-top: 2px solid #EFEFEF;
+  height: 85vh;
 }
 .card {
   box-shadow: 0px 0px 10px 0px rgba(34, 60, 80, 0.2);
@@ -40,7 +44,8 @@ a {
   .content {
     min-width: 0px;
     max-width: 992px;
-    padding: 0 0.7rem;
+    padding-left: 0.7rem;
+    padding-right: 0.7rem;
   }
   .card {
     box-shadow: none;
