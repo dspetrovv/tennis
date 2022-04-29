@@ -192,6 +192,7 @@ import { Dropdown } from "@/types/globals";
 import { initButtons } from "@/functions/competitions-buttons";
 import { changeClass } from "@/functions/competitions-tabs-functions";
 import CompetitionsGroups from "./CompetitionsGroups.vue";
+import { useGlobalStore } from "@/store/useGlobal";
 
 export default defineComponent({
   components: {
@@ -203,6 +204,9 @@ export default defineComponent({
     CompetitionsGroups,
   },
   setup() {
+    const globalStore = useGlobalStore();
+    globalStore.setPageTitle("Соревнования");
+
     const {
       width,
       isMobile,
