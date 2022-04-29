@@ -34,7 +34,8 @@ a {
   padding-top: 10px;
   background-color: #F9F9F9;
   border-top: 2px solid #EFEFEF;
-  height: 85vh;
+  min-height: 85vh;
+  height: 100%;
 }
 .card {
   box-shadow: 0px 0px 10px 0px rgba(34, 60, 80, 0.2);
