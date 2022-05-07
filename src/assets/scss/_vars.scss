@@ -10,6 +10,7 @@ $color1_disabled: #8080ff;
 $color2: #FF8D17;
 $color3: #B06B43;
 $color4: #F38A35;
+$schoolCard: minmax(250px, 1fr);
 
 @mixin noPaddingList {
   display: flex;
