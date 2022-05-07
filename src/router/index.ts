@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import competitions from "./routes/competitions";
 import players from "./routes/players";
+import schools from "./routes/schools";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -18,8 +19,13 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   },
+  // {
+  //   path: "/:any(.*)",
+  //   component: 404
+  // },
   ...competitions,
   ...players,
+  ...schools,
 ];
 
 const router = createRouter({
