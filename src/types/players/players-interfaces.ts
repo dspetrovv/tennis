@@ -11,6 +11,7 @@ interface Prize {
   count: number;
   image: string;
 }
+
 interface PlayerMatch {
   id: number;
   idcompet: number;
@@ -19,4 +20,14 @@ interface PlayerMatch {
   score: string;
 }
 
-export { Player, Prize, PlayerMatch };
+interface Coach {
+  id: number;
+  name: string;
+  surname: string;
+  middlename?: string;
+  experience: number;
+  about: string;
+  avatar: string;
+}
+
+export { Player, Prize, PlayerMatch, Coach };

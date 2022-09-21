@@ -44,6 +44,7 @@ a {
 .card {
   box-shadow: 0px 0px 10px 0px rgba(34, 60, 80, 0.2);
   border-radius: 0.5rem;
+  position: relative;
   &s-list {
     &_grid {
       display: grid;
@@ -67,6 +68,12 @@ a {
       position: absolute;
       width: 100%;
     }
+    &-coach {
+      height: 100%;
+      img {
+        height: 250px;
+      }
+    }
   }
   &__title {
     margin-bottom: 0.5rem !important;
@@ -83,6 +90,34 @@ a {
     position: absolute;
     max-width: calc(100% - 24px);
   }
+  &__main-info {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    padding-top: 0;
+    h3, h4 {
+      color: white;
+      text-shadow: 0 0 4px #000000;
+    }
+  }
+}
+.socials {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  &:not(:last-child) {
+    margin-right: 1.5rem;
+  }
+}
+.mt-10 {
+  margin: 10px;
+}
+.mb-10 {
+  margin-bottom: 10px;
+}
+.mb-8 {
+  margin-bottom: 8px;
 }
 @media screen and (max-width: 1190px) {
   .cards-list {

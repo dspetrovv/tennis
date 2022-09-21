@@ -6,11 +6,11 @@ const schools: Array<RouteRecordRaw> = [
     name: "schools",
     component: () => import("@/views/sport/SportSchoolsList.vue"),
   },
-  // {
-  //   path: "/schools/:id",
-  //   name: "school-page",
-  //   component: () => import("@/views/sport/SportSchoolPage.vue"),
-  // },
+  {
+    path: "/schools/:id",
+    name: "school-page",
+    component: () => import("@/views/sport/SportSchoolPage.vue"),
+  },
 ];
 
 export default schools;
